@@ -5,14 +5,17 @@ import { useMarketFilters } from "../store/marketFilters";
 
 export function useAssets() {
   const search = useMarketFilters((state) => state.search);
+  const page = useMarketFilters((state) => state.page);
 
   return useQuery<Asset[]>({
     queryKey: [
       "assets",
       search,
+      page
     ],
-
-    queryFn: () => getAssets(search),
-    refetchInterval: 5000
+    queryFn: () => getAssets(search, page),
+    refetchInterval: 5000,
+    retry: 2,
+    staleTime: 30_000,
   });
 }
