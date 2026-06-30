@@ -1,75 +1,185 @@
-# React + TypeScript + Vite
+# Market Dashboard - Front-End Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern cryptocurrency market dashboard built with React, TypeScript and modern front-end architecture principles.
 
-Currently, two official plugins are available:
+This project was developed to demonstrate scalable component organization, server state management, API integration, performance considerations and clean separation of responsibilities.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Technologies
 
-## React Compiler
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* React Query (TanStack Query)
+* Zustand
+* ESLint
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Features
 
-## Expanding the ESLint configuration
+* Cryptocurrency market listing
+* Real API integration
+* Search assets
+* Infinite scrolling pagination
+* Loading and error states
+* Responsive UI
+* Server state caching
+* Client state management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🏗️ Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The application follows a feature-based architecture:
 
 ```
+src
+ ├── features
+ │    └── market
+ │         ├── components
+ │         ├── hooks
+ │         ├── services
+ │         ├── store
+ │         └── types
+ │
+ ├── shared
+ │    └── components
+ │
+ └── app
+```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The goal of this structure is to keep business logic isolated and make the application easier to scale and maintain.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧠 State Management
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+This project separates server state from client state.
+
+### React Query
+
+React Query is responsible for server state:
+
+* API communication
+* Data caching
+* Loading states
+* Error handling
+* Query synchronization
+* Pagination
+
+Example flow:
 
 ```
+Component
+    |
+Custom Hook
+    |
+React Query
+    |
+Service Layer
+    |
+API
+```
+
+### Zustand
+
+Zustand is used only for client-side state.
+
+Examples:
+
+* UI filters
+* Selected assets
+* User preferences
+
+Server data is intentionally not stored in Zustand to avoid duplicated sources of truth.
+
+## 🔎 Data Fetching
+
+The application uses a service layer to isolate API communication.
+
+Example:
+
+```
+components
+      |
+      |
+hooks
+      |
+      |
+services
+      |
+      |
+external API
+```
+
+This approach keeps components focused only on rendering and user interaction.
+
+## ♾️ Infinite Scrolling
+
+Asset loading uses TanStack Query `useInfiniteQuery`.
+
+The implementation provides:
+
+* Page-based fetching
+* Cache per query
+* Automatic loading of new pages
+* Better user experience compared to traditional pagination
+
+## 🎨 Styling
+
+Tailwind CSS is used for:
+
+* Responsive layouts
+* Reusable UI patterns
+* Fast styling workflow
+
+The project also uses a centralized color theme to maintain consistency.
+
+## 🛡️ Error Handling
+
+The application handles:
+
+* API failures
+* Empty states
+* Loading states
+
+Providing feedback instead of leaving the user with an unclear interface.
+
+## ⚡ Performance Considerations
+
+The project considers:
+
+* Avoiding unnecessary global state
+* Using React Query cache
+* Component separation
+* Optimized rendering patterns
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the project:
+
+```bash
+npm run dev
+```
+
+## 📈 Future Improvements
+
+Possible improvements:
+
+* WebSocket integration for real-time market updates
+* Authentication flow
+* Advanced charts
+* More detailed asset pages
+* Automated tests
+* CI/CD pipeline
+
+## 👨‍💻 Author
+
+Developed as a front-end engineering challenge demonstrating React, TypeScript and modern application architecture.

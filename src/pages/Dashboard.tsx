@@ -1,7 +1,6 @@
 import { AssetPagination } from "../features/market/components/AssetPagination";
 import { AssetSearch } from "../features/market/components/AssetSearch";
 import { MarketList } from "../features/market/components/MarketList";
-import { Watchlist } from "../features/market/components/Watchlist";
 
 export function Dashboard() {
 
@@ -13,7 +12,6 @@ export function Dashboard() {
       </div>
       <MarketList />
       <AssetPagination />
-      <Watchlist />
     </div>
   );
 }
